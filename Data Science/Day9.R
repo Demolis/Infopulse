@@ -3,7 +3,7 @@ library(jpeg)
 image <- readJPEG("France.jpg")
 Xras = 800; Yras = 731
 Reg <- c("Paris","Orlean","Lion","Tulusa")
-par(mar = c(0, 0, 0, 0))
+par(mar = c(1, 1, 1, 1))
 ?par
 plot(1,xlim = c(0, Xras), ylim = c(0, Yras), xlab = "", ylab = "")
 lim <- par()
@@ -31,6 +31,8 @@ library(ggplot2)
 library(rgeos)
 gadm<-readRDS("FRA_adm0.rds") #source https://gadm.org/download_country.html
 france <- fortify(gadm)
+str(france)
+?expand_limits
 m <- ggplot() + geom_map(data = france, 
                          aes(map_id = id), 
                          map = france,
@@ -73,7 +75,7 @@ library(spatstat)
 
 
 plotBl <- read.table(file = "bloss.txt", header = T, sep = "\t")
-
+str(plotBl)
 # the size 
 xmin <- floor(min(plotBl$x))
 xmax <- ceiling(max(plotBl$x))
@@ -89,18 +91,19 @@ ppp_object <- ppp(x = plotBl$x, y = plotBl$y,
 
 # Square
 A <- area.owin(ppp_object$window)
-
+A
 # number of points
 N <- ppp_object$n
 
 # the size of 1 cell
 L <- sqrt(2*A/N)
-
+L
 
 
 
 # Build the cells:
 quadnum <- round(10/L)
+quadnum
 ppp_quadrats <- quadrats(ppp_object, nx = quadnum, ny = quadnum)
 
 # The number of points in cells:
@@ -135,7 +138,7 @@ sigma<-(sd(gene_ppp$x) + sd(gene_ppp$y))/2
 iqr<-(IQR(gene_ppp$x) + IQR(gene_ppp$y))/2 
 bandwidth <- 0.9*min(sigma, iqr)*gene_ppp$n^(-1/5)
 bandwidth
-gene_intensity <- density.ppp(gene_ppp, sigma =bandwidth)
+gene_intensity <- density.ppp(gene_ppp, sigma =2)
 plot(gene_intensity,   main = "Плотность gene, экз/кв.м")
 points(gene_ppp, pch = 19, cex = 0.6)
 
@@ -179,74 +182,3 @@ M <- gvisMotionChart(Fruits, idvar = "Fruit", timevar = "Year")
 plot(M)
 print(M, tag = "chart")
 
-#-----------------------------------------------------------------------	
-#   Maps and Shape Files in R
-#-----------------------------------------------------------------------	
-
-library(maptools)
-
-# Shape file:
-Regions <- readShapePoly("Fra_adm1.shp")
-
-slotNames(Regions)
-Regions@data
-str(Regions@polygons)
-Regions@data$NAME_1
-
-# Region of France:
-spplot(Regions,
-       "NAME_1", 
-       scales = list(draw = T), 
-       col.regions = rainbow(n = 22) ) 
-library(RColorBrewer)
-spplot(Regions,
-       "NAME_1", 
-       scales = list(draw = T), col.regions = brewer.pal(22, "Set3"),
-       par.settings = list(axis.line = list(col = NA)))
-
-# We ant to add some data
-# The order is important
-
-Regions@data$Value = rnorm(22)
-mypalette <- colorRampPalette(c("seagreen", "whitesmoke"))
-
-# mypalette - is a function:
-mypalette
-spplot(Regions, "Parameter",
-       col.regions = mypalette(20),  
-       col = "transparent", # without borders
-       par.settings = list(axis.line = list(col = NA)))
-
-#the same in ggplot2
-install.packages('rgeos',dep=T)
-install.packages('rgdal', type='source')
-library(ggplot2) 
-library(rgeos); 
-library(maptools)
-
-counties <- fortify(Regions, region = "NAME_1")
-str(counties)
-ggplot() + geom_map(data = counties,
-                    aes(map_id = id), 
-                    map = counties) + 
-  expand_limits(x = counties$long, y = counties$lat) +
-  coord_map("polyconic")
-
-fake_data <- as.data.frame(Regions@data)
-ggplot() + geom_map(data = fake_data, aes(map_id = NAME_1, fill = Value),                   
-          map = counties) + expand_limits(x = counties$long, y = counties$lat) + coord_map("polyconic")
-
-# In other colors:
-library(scales) 
-ggplot() + geom_map(data = fake_data,
-                    aes(map_id = NAME_1, fill = Value),
-                    colour = "gray",
-                    map = counties) + 
-  expand_limits(x = counties$long, y = counties$lat) +
-  scale_fill_gradient2(low = muted("blue"), 
-                       midpoint = 0,
-                       mid = "white",
-                       high = muted("red"),
-                       limits = c(min(fake_data$Value),
-                                  max(fake_data$Value))) +
-  coord_map("polyconic")
