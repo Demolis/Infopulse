@@ -1,10 +1,10 @@
 install.packages(c("tm","wordcloud"),dep=T)
-install.packages("SnowballC",dep=T)
+install.packages("SentimentAnalysis",dep=T)
 library(tm)
 library(ggplot2) 
 library(RColorBrewer)
 library(wordcloud)
-library(SnowballC)
+library(SentimentAnalysis)
 
 
 fpath <- "D:/Work/InfoPulse/data-science/Datasets/Texts/Learn"
@@ -112,5 +112,8 @@ kfit <- kmeans(d, 2)
 clusplot(as.matrix(d), kfit$cluster, color=T, shade=T, labels=2, lines=0)  
 
 #Sentiment analysis
+?SentimentAnalysis
+class_emo = analyzeSentiment(textL)
+class_emo
+convertToDirection(class_emo$SentimentGI)
 
-class_emo = classify_emotion(textL, algorithm="bayes", prior=1.0)
