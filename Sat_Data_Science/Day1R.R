@@ -13,11 +13,11 @@ pi
 iris
 
 ## list of variables
-ls()
-rm(a)
+ls
+rm(par)
 
 ## logical type
-logic_var<-3>2
+logic_var<-3==2
 logic_var
 
 logic_var<-3>2 & 54<2
@@ -28,17 +28,18 @@ logic_var
 
 ## numeric type
 class(par)
-par<-11.0
+par<-11.4
 is.numeric(par)
 par<-as.integer(par)
 class(par)
 
 par > 0
 cos(par)
-sqrt(par)
+pars<-sqrt(par)+34/32
 round(par)
 par %% 3
 par %/% 3
+par ^ 3
 
 ## characters
 var1<-"Hello"
@@ -58,15 +59,16 @@ arr_1[arr_1>7]
 res<-arr_1 == 4
 res
 cos(arr_1)
-arr_1[-3]
+arr_1[-c(3,5:8)]
 
 arr_3 <- c(arr_2, "23")
-
+length(arr_1)
 ## matrices
 matr1 <- matrix (seq(1,16), nrow= 4, ncol =4)
 matr1
 rownames(matr1)<-c(1,2,3,"A")
-cbind(arr_1,arr_2) #also rbind()
+matr1[2:4,-2]
+arr_4<-cbind(arr_1,arr_2) #also rbind()
 matr1[4,3:4]
 t(matr1)
 
@@ -79,21 +81,17 @@ lst
 str(lst)
 lst$First
 lst$First[3]
-lst[[2]]
 lst[[2]][1]
 
 ## data frames
 getwd()
 setwd("D:/Work/InfoPulse/data-science/Saturday/Data")
-tbl <- read.csv("1.csv")
-tbl
-str(tbl)
-tbl <- read.csv("1.csv", sep=";")
+tbl <- read.csv("1.csv",sep=";")
 tbl
 str(tbl)
 head(tbl)
 tail(tbl,n = 2)
-tbl$Par.1
+tbl$Sum<-tbl$Par.1+tbl$Par.2
 
 ## statistics
 mean(1:10)
@@ -107,7 +105,7 @@ plot(1:10, col="red")
 plot(1:10,2)
 plot(tbl$Par.1,tbl$Par.2)
 
-hist(tbl$Par.1, col="blue")
-
-boxplot(tbl$Par.1,tbl$Par.2)
+hist(tbl$Par.1, col="blue",main="Bla")
+?hist
+boxplot(tbl$Par.1)
 boxplot(c(tbl$Par.1,500))
