@@ -1,0 +1,37 @@
+---
+title: "HW2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Home Work Day 2
+I **want** to show the possibility of R Markdown using.
+[Here](https://rmarkdown.rstudio.com/) you can find more options.
+
+###1 Task
+```{r matrix}
+matr<-matrix(rnorm(2500),nrow =  50,ncol = 50)
+matr
+```
+###2 Task
+```{r plot, echo=FALSE}
+plot(matr[,which.min(apply(matr,2,mean))],
+     matr[,which.max(apply(matr,2,sd))],col="red",type="l",xlab = "X", ylab = "Y")
+```
+###3 Task
+```{r}
+x<-1
+y<-1
+(x+y)%%2==0
+```
+###4 Task
+```{r}
+x1<-1
+y1<-1
+x2<-3
+y2<-2
+(x1==x2)||(y1==y2)||((x1-x2)==(y1-y2))
+```
