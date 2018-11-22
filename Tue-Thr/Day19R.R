@@ -1,0 +1,56 @@
+install.packages(c("tm","wordcloud"),dep=T)
+install.packages("SentimentAnalysis",dep=T)
+library(tm)
+library(ggplot2) 
+library(RColorBrewer)
+library(wordcloud)
+library(SentimentAnalysis)
+
+
+fpath <- "~/Documents/Work/InfoPulse/data-science/Datasets/Texts/Learn/kant-metaphysical.txt"
+fpath
+dir(fpath)
+a<-readLines(file(fpath))
+a
+a<-paste(a,collapse = "")
+?VCorpus
+
+textL<- VCorpus(VectorSource(a)) 
+
+
+#Preprocessing
+
+textL <- tm_map(textL,removePunctuation)   
+
+textL <- tm_map(textL, removeNumbers) 
+textL <- tm_map(textL, tolower)   
+
+stopwords("english")
+stopwords("russian")
+textL <- tm_map(textL, removeWords, stopwords("english"))   
+
+
+textL <- tm_map(textL, stripWhitespace)
+textL <- tm_map(textL, PlainTextDocument)
+
+#Discovering
+dtm <- DocumentTermMatrix(textL) #   TermDocumentMatrix
+
+dtm$dimnames$Terms
+
+install.packages("topicmodels")
+library(topicmodels)
+burnin = 2000
+iter = 10000
+keep = 50
+res<-LDA(dtm,
+    k = 5,
+    method = "Gibbs",
+    control = list(burnin = burnin,
+                   iter = iter,
+                   keep = keep))
+res@logLiks[-c(1:(burnin/keep))]
+str(res@logLiks)
+1/mean(1/res@logLiks[-c(1:(burnin/keep))])
+topics(res)
+terms(res,10)
