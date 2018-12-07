@@ -52,5 +52,5 @@ res<-LDA(dtm,
 res@logLiks[-c(1:(burnin/keep))]
 str(res@logLiks)
 1/mean(1/res@logLiks[-c(1:(burnin/keep))])
-topics(res)
+topics(res,3)
 terms(res,10)
