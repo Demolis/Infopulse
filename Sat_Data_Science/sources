@@ -1,4 +1,4 @@
-﻿Статистика в R
+Статистика в R
 https://cran.r-project.org/doc/contrib/Shipunov-rbook.pdf
 http://www.ievbras.ru/ecostat/Kiril/R/MS_2014/MS_2014.pdf
 http://www.rdatamining.com/
@@ -16,3 +16,11 @@ NN
 http://colah.github.io/posts/2015-08-Understanding-LSTMs/
 https://www.analyticsvidhya.com/blog/2017/09/creating-visualizing-neural-network-in-r/
 https://www.r-bloggers.com/fitting-a-neural-network-in-r-neuralnet-package/
+
+
+
+temp<-strsplit(textL[[1]]$content," ")[[1]]
+temp<-wordStem(temp,language="ru")
+textL[[1]]$content<-paste(temp,collapse=" ")
+
+textL[[1]]$content<-stemDocument(textL[[1]]$content,language="ru")
