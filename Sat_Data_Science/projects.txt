@@ -1,0 +1,10 @@
+1. https://www.kaggle.com/c/Eurovision2010/data
+2. https://www.kaggle.com/c/competitive-data-science-predict-future-sales/data
+3. https://www.kaggle.com/c/web-traffic-time-series-forecasting/data
+4. https://www.kaggle.com/c/coupon-purchase-prediction/data
+5. https://www.kaggle.com/c/avito-context-ad-clicks/data
+6. https://www.kaggle.com/c/sentiment-analysis-on-movie-reviews/data
+7. https://www.kaggle.com/c/loan-default-prediction/overview
+8. https://www.kaggle.com/c/job-salary-prediction/data
+9. https://www.kaggle.com/c/online-sales/data
+10. https://www.kaggle.com/c/GiveMeSomeCredit/overview
