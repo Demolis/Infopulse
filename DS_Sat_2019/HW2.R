@@ -38,7 +38,7 @@ my_n<-function(N){
 my_n(342124)
 #4
 my_mas<-function(m){
-  for(i in length(m)){
+  for(i in 1:length(m)){
     if (m[i]>mean(m)){
       m[i]<-m[i]-18
     }
