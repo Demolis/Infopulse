@@ -31,7 +31,6 @@ yssf=ssf[!is.na(ssf$OtherPay),]$TotalPay
 reslm<-lm(formula = yssf ~ xssf)
 summary (reslm)
 
-
 a0 <- reslm$coefficient[1]
 a1 <- reslm$coefficient[2]
 xmin <- min(xssf)
@@ -43,6 +42,7 @@ str(x)
 plot(xssf, yssf, main="", xlab="Other Pay", ylab="Total Pay")
 grid()
 lines(x, y, col="red")
+
 
 
 ssfreg<-ssf[1:500,]
@@ -62,7 +62,7 @@ grid.arrange(p1, p2, p3, ncol = 1)
 
 cor(ssfreg[,3:5])
 
-mod1<-lm(OvertimePay~OtherPay+BasePay, data=ssf)
+mod1<-lm(TotalPay~OtherPay+BasePay+OvertimePay, data=ssf)
 summary(mod1)
 
 

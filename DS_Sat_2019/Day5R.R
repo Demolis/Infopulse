@@ -124,7 +124,7 @@ library(plm)
 fit <- HoltWinters(TS, beta=FALSE, gamma=FALSE)
 fit <- HoltWinters(TS, gamma=FALSE)
 fit <- HoltWinters(TS)
-
+plot(fit)
 accuracy(forecast(fit))
 forecast(fit, 10)
 plot(forecast(fit, 10))
