@@ -57,6 +57,7 @@ tail(varpie)
   library(VIM)
   ?sleep
   data(sleep, package="VIM")
+  
   sleep[complete.cases(sleep),] 
   sleep[!complete.cases(sleep),]
   str(sleep)
@@ -66,7 +67,6 @@ tail(varpie)
   md.pattern(sleep) 
   na.omit(sleep)
   cor(sleep, use="pairwise.complete.obs")
-
 
   ?mice
   imp <- mice(sleep, seed=1234) #method ? parameter of method
@@ -81,7 +81,12 @@ tail(varpie)
   na.spline(sleep,na.rm=F)
 
   
+  out<-boxplot(ssfreg$TotalPay)
+  out$out
+  filter(ssfreg,!(TotalPay %in% out$out))
+  boxplot(filter(ssfreg,!(TotalPay %in% out$out))$TotalPay)
+  filter(ssfreg,!(TotalPay %in% out$out))
   
-
-  
+  library(outliers) 
+  grubbs.test(ssfreg$TotalPay, type = 10)
   
