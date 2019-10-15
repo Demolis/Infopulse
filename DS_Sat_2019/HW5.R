@@ -71,6 +71,7 @@ forec <- forecast(model, h = 10)
 plot(forec, xlim=c(2012,2016))
 
 dec$figure
+dec$seasonal 
 season<-c(dec$figure[49:52],dec$figure[1:6])
 forec$mean<-forec$mean+season
 forec$x<-forec$x+dec$seasonal
