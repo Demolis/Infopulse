@@ -33,19 +33,17 @@ testNN = scaled[-index , ]
 # fit neural network
 set.seed(2)   
 f<-as.formula("rating ~ calories + protein + fat + sodium + fiber")
-NN = neuralnet(f, trainNN, hidden = c(2,3))
-
+NN = neuralnet(f, trainNN, hidden = c(2,3),linear.output = T,rep=100)
+which.min(NN$result.matrix[1,])
 # plot neural network
-plot(NN)
-
+plot(NN,rep=2)
 ## Prediction using neural network
 
-predict_testNN = compute(NN, testNN[,c(1:5)])
+predict_testNN = compute(NN, testNN[,c(1:5)],rep=2)
 
 predict_testNN = (predict_testNN$net.result * (max(data$rating) - min(data$rating))) + min(data$rating)
 
 plot(data[-index,]$rating, predict_testNN, col='blue', pch=16, ylab = "predicted rating NN", xlab = "real rating")
-
 abline(0,1)
 # Calculate Root Mean Square Error (RMSE)
 RMSE.NN = (sum((data[-index,]$rating - predict_testNN)^2) / nrow(testNN)) ^ 0.5
