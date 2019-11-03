@@ -14,7 +14,7 @@ rasterImage(image, lim$usr[1], lim$usr[3], lim$usr[2], lim$usr[4])
 xy <- locator(4)
 xy
 Estimates <- c(89,54,64,32)
-mycex = 2*(Estimates - min(Estimates))/max(Estimates) + 2
+mycex = 8*(Estimates - min(Estimates))/max(Estimates) + 2
 colpts = rgb(0.2, 0.5, 0.4, alpha = 0.6)
 points(xy$x, xy$y,cex = mycex, col = 1, pch = 21, bg = colpts)
 
@@ -42,6 +42,7 @@ m <- ggplot() + geom_map(data = france,
   coord_map("mercator") + 
   xlab("Lon") + ylab("Lat") + theme_bw()
 m
+
 mp <- m + geom_point(data = data.frame(Lat = c(45.0, 47.2,45.5, 48.5),
                                        Lon = c(0, 3.0, 7.0, -2.0)),
                      aes(Lon, Lat), color = I("red"), size = 3)
