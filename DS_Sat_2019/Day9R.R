@@ -33,7 +33,7 @@ library(rgeos)
 gadm<-readRDS("FRA_adm0.rds") #source https://gadm.org/download_country.html
 france <- fortify(gadm)
 str(france)
-
+summary(as.factor(france$id))
 m <- ggplot() + geom_map(data = france, 
                          aes(map_id = id), 
                          map = france,
