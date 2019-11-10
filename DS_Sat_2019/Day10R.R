@@ -58,7 +58,7 @@ plot(quadcount, add=T, cex=0.7)
 
 # add the points:
 plot(ppp_object, which.marks = "age",
-     chars = c(10, 12), cex = c(0.1,1), add = T)
+     chars = c(10, 12), cex = c(0.1,0.5), add = T)
 
 # CSR test for probabilities:
 quadrat_test_result <- quadrat.test(ppp_object, nx = 9, ny = 9)
@@ -72,8 +72,8 @@ sigma<-(sd(gene_ppp$x) + sd(gene_ppp$y))/2
 iqr<-(IQR(gene_ppp$x) + IQR(gene_ppp$y))/2 
 bandwidth <- 0.9*min(sigma, iqr)*gene_ppp$n^(-1/5)
 bandwidth
-gene_intensity <- density.ppp(gene_ppp, sigma =bandwidth)
-plot(gene_intensity,   main = "Gene Intensity")
+gene_intensity <- density.ppp(gene_ppp)
+plot(gene_intensity, main = "Gene Intensity")
 points(gene_ppp, pch = 19, cex = 0.6)
 
 
@@ -98,9 +98,10 @@ library(sp)
 library(maptools)
 library(ggplot2)
 library(rgeos)
+library(rgdal)
 
 # Shape file:
-Regions <- readShapePoly("Fra_adm1.shp")
+Regions <- readOGR("Fra_adm1.shp")
 
 slotNames(Regions)
 Regions@data    
