@@ -19,7 +19,7 @@ textL<- VCorpus(VectorSource(a))
 summary(textL)
 inspect(textL[1])
 
-writeLines(as.character(textL[15]))
+writeLines(as.character(textL[3]))
 
 
 
@@ -63,7 +63,7 @@ p
 
 #Relation between terms
 
-a<-findAssocs(dtm, c("duty" , "moral"), corlimit=0.15)
+a<-findAssocs(dtm, c("duty" , "moral"), corlimit=0.01)
 a
 set.seed(345)   
 wordcloud(names(freq), freq, min.freq=25) 
@@ -75,13 +75,13 @@ dark2 <- brewer.pal(6, "Dark2")
 wordcloud(names(freq), freq, max.words=100, rot.per=0.2, colors=dark2)  
 
 #Term Clustering
-dtmss <- removeSparseTerms(dtm,sparse = 0.95) 
+dtmss <- removeSparseTerms(dtm,sparse = 0.98) 
 dtmss
 
 library(fpc) 
 library(cluster)
 d <- dist(t(dtmss), method="euclidian")   
-kfit <- kmeans(d, 2)   
+kfit <- kmeans(d, 3)   
 clusplot(as.matrix(d), kfit$cluster, color=T, shade=T, labels=2, lines=0)  
 
 #Sentiment analysis

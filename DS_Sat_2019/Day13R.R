@@ -32,6 +32,7 @@ textL <- tm_map(textL, removeWords, stopwords("english"))
 textL <- tm_map(textL, stripWhitespace)
 textL <- tm_map(textL, PlainTextDocument)
 
+
 #Discovering
 dtm <- DocumentTermMatrix(textL) #   TermDocumentMatrix
 

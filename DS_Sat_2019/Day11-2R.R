@@ -8,7 +8,7 @@ newdf$Sex<-as.numeric(newdf$Sex)
 princdf<-princomp(scale(newdf))
 summary(princdf)
 plot(princdf)
-
+princdf
 princdf$loadings
 pred<-predict(princdf)
 
@@ -20,11 +20,12 @@ biplot(princdf)
 #------
 fdf<-factanal(newdf,3,scores = "reg")
 fdf$scores
-
 fdf
-plot(fdf$scores[,1:3])
+?biplot(fdf$loadings)
+
 plot(fdf$scores[,1:2],type="n")
 text(fdf$scores[,1:2],labels=df$Survived)
+
 
 
 save(NN, file="NN.RData")

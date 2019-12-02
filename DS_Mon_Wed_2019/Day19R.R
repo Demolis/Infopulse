@@ -32,7 +32,7 @@ fancyRpartPlot(model_cer)
 
 pred<-predict(model_cer, newdata = test, type="vector")
 
-sqrt(sum((pred - test$rating)^2))/length(pred)/mean(data$rating)
+sqrt(sum((pred - test$rating)^2)/length(pred))/mean(data$rating)
 
 #the set of trees
 
@@ -41,8 +41,8 @@ res <- numeric(ntrees)
 prd <- numeric(nrow(test))
 for(i in 1:ntrees){
   #выберем 80% рядов и колонок из множества данных
-  x <- runif(nrow(train))>0.4;
-  y <- runif(ncol(train))>0.4;
+  x <- runif(nrow(train))>0.2;
+  y <- runif(ncol(train))>0.2;
   #обязательно включим rating
   y[6] <- TRUE
   traindata <- train[x,y]
@@ -52,8 +52,8 @@ for(i in 1:ntrees){
   prd <- prd + predict(tree, test)
   predictions <- prd / i
   #оцениваем ошибку
-  res[i] <- sqrt(sum((predictions - test$rating)^2))/length(predictions)/mean(data$rating)
-  print(res[i])
+  res[i] <- sqrt(sum((predictions - test$rating)^2)/length(predictions))/mean(data$rating)
+  
 }
 plot(res,type="l")
 
@@ -72,7 +72,7 @@ test <- data[-index , ]
 
 rf <- randomForest(age ~ ., train)
 predictions <- predict(rf, test)
-print(sqrt(sum((as.integer(predictions) - as.integer(test$age))^2))/length(predictions))
+print(sqrt(sum((as.integer(predictions) - as.integer(test$age))^2)/length(predictions)))
 
 importance(rf)
 
