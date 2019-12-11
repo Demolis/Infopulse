@@ -29,6 +29,7 @@ stopwords("english")
 stopwords("russian")
 textL <- tm_map(textL, removeWords, stopwords("english"))   
 
+textL[[1]]$content<-stemDocument(textL[[1]]$content,language="en")
 
 textL <- tm_map(textL, stripWhitespace)
 textL <- tm_map(textL, PlainTextDocument)
