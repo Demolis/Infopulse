@@ -4,6 +4,7 @@ library(tm)
 library(ggplot2) 
 library(RColorBrewer)
 library(wordcloud)
+library(SnowballC)
 library(SentimentAnalysis)
 
 
