@@ -1,10 +1,10 @@
 
 #Comments :-P
 
-1 + 5
+1 + 5^43-90/98
 1 + "a"
 
-par<-8 # or =, but <- is better
+par<-8+2 # or =, but <- is better
 par
 "a"->par
 
@@ -18,9 +18,9 @@ ls()
 ?rm(list=ls())
 
 ## logical type
-logic_var<-3==2
+logic_var<-3!=2
 logic_var<-T
-
+!logic_var
 logic_var<-3>2 & 54<2
 logic_var
 
@@ -52,12 +52,14 @@ var1 == var2
 ##
 
 ## arrays
-arr_1 <- c(1,2,3,4,5,6,7,8,9,10)
-arr_2 <- 1:10 # also functions seq() and rep()
-arr3<-seq(1.2,60)
+arr_1 <- c(6,2,43,4,2,1,7,8,9,10)
+arr_2 <- 17:45 # also functions seq() and rep()
+arr3<-seq(1.2,60,5)
 class(arr_1)
 arr3[2]
 arr3[2:4]
+arr3[c(3,5,1)]
+arr3[7:length(arr3)]
 arr3[arr3>7]
 res<-arr_1 == 4
 res
@@ -71,6 +73,7 @@ matr1 <- matrix (seq(1,16), nrow= 4, ncol =4)
 matr1
 rownames(matr1)<-c("A","B","C","D")
 matr1[2:4,-2]
+arr_2<-23:32
 arr_4<-cbind(arr_1,arr_2) #also rbind()
 matr1[4,3:4]
 t(matr1)
@@ -89,15 +92,16 @@ lst[[2]][1]
 ## data frames
 getwd()
 #setwd("D:/Work/InfoPulse/data-science/Saturday/Data")
-tbl <- read.csv("1.csv",sep=";")
+tbl <- read.csv("1.csv",sep=";")#dec=","
 tbl
 str(tbl)
-head(tbl)
-tail(tbl,n = 2)
+head(tbl,n=3)
+?tail(tbl)
 tbl$X
 tbl[tbl$Par.1>30,-2]
 tbl$Sum<-tbl$Par.1+tbl$Par.2
 str(tbl)
+tbl$Sum<-NULL
 
 ## statistics
 mean(1:10)
@@ -107,7 +111,7 @@ summary(tbl)
 
 ## plots
 ?plot
-plot(1:10, col="red")
+plot(5:18, col="red")
 plot(1:10,2)
 plot(tbl$Par.1,tbl$Par.2)
 
