@@ -19,7 +19,7 @@ str(df)
 head(df,n = 5)
 tail(df)
 df$ISO<-NULL
-
+df[df==NA]<-0
 df[is.na(df)]<-0
 tail(df)
 

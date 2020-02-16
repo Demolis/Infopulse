@@ -24,12 +24,13 @@ summa <-function(a,b){
   return(a+b)
 }
 #source()
-summa(4, a=2)
+summa(2,0)
+summa(5, a=2)
 
 summa2 <-function(a,b=1){
   print(a+b)
 }
-summa2<-summa2(4,5)
+summa2(5)
 sum(matr1)
 
 matr1 <- matrix (seq(1,16), nrow= 4, ncol =4)
@@ -39,15 +40,15 @@ apply(matr1,2,sum)
 apply(matr1,2,function(x) summa(x,3))
 
 #if clause
-if (a>b){
-  print("a > b")
+if (a>=b){
+  print("a >= b")
 } else {
   print ("a < b")
 }
 
 #cycles
-for (i in 1:10){
-  print(i)
+for (fda in 1:10){
+  print(fda)
 }
 num<-0
 mas<-num
@@ -68,7 +69,10 @@ select(df,-Hospital.beds)
 
 df2<-df %>% 
   select(-(Hospital.beds:Population))
+
+
 df1<-select(df,starts_with("h"))
+
 head(df1)
 
 df %>% 
@@ -92,7 +96,7 @@ df %>%
   tail
 
 df<-df %>% 
-  mutate(GDP = GDP.per.capita / Population) %>%
+  mutate(GDP = GDP.per.capita * Population) %>%
   head
 
 df %>%
@@ -116,7 +120,4 @@ newdf%>%
 
 
 
-df %>% 
-  filter(4:5 > 5) %>%
-  arrange(Conflicts.intencity, desc(Country)) %>%
-  head
+
