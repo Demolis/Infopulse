@@ -81,12 +81,3 @@ tail(varpie)
   na.spline(sleep,na.rm=F)
 
   
-  out<-boxplot(ssfreg$TotalPay)
-  out$out
-  filter(ssfreg,!(TotalPay %in% out$out))
-  boxplot(filter(ssfreg,!(TotalPay %in% out$out))$TotalPay)
-  filter(ssfreg,!(TotalPay %in% out$out))
-  
-  library(outliers) 
-  grubbs.test(ssfreg$TotalPay, type = 10)
-  
