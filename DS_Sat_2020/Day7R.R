@@ -27,11 +27,16 @@ ssfreg<-ssf[1:500,]
 #------------------------
 
 out<-boxplot(ssfreg$TotalPay)
+out
 out$out
-filter(ssfreg,!(TotalPay %in% out$out))
-boxplot(filter(ssfreg,!(TotalPay %in% out$out))$TotalPay)
-filter(ssfreg,!(TotalPay %in% out$out))
 
+df_clean<-filter(df,!(CO2 %in% out$out))
+
+
+ssfreg$TotalPay %in% out$out
+boxplot(filter(ssfreg,!(TotalPay %in% out$out))$TotalPay)
+
+install.packages("outliers")
 library(outliers) 
 grubbs.test(ssfreg$TotalPay, type = 10)
 
@@ -72,15 +77,21 @@ testNN = scaled[-index , ]
 set.seed(2)   
 f<-as.formula("rating ~ calories + protein + fat + sodium + fiber")
 NN = neuralnet(f, trainNN, hidden = c(2,3),linear.output = T,rep=100)
+
 which.min(NN$result.matrix[1,])
 # plot neural network
-plot(NN,rep=2)
+plot(NN,rep=71)
 ## Prediction using neural network
 
-predict_testNN = compute(NN, testNN[,c(1:5)],rep=2)
+predict_testNN = compute(NN, testNN[,c(1:5)],rep=71)
+predict_testNN$net.result
+
+X=(x-min)/(max-min)
+X*(max-min)=x-min
+x=X*(max-min)+min
 
 predict_testNN = (predict_testNN$net.result * (max(data$rating) - min(data$rating))) + min(data$rating)
-
+data[-index , 6]
 plot(data[-index,]$rating, predict_testNN, col='blue', pch=16, ylab = "predicted rating NN", xlab = "real rating")
 abline(0,1)
 # Calculate Root Mean Square Error (RMSE)
@@ -88,6 +99,8 @@ RMSE.NN = (sum((data[-index,]$rating - predict_testNN)^2) / nrow(testNN)) ^ 0.5
 RMSE.NN/median(data$rating)*100
 
 
+
+#-------#
 ## Cross validation of neural network model
 
 
