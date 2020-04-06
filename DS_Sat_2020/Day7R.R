@@ -64,7 +64,7 @@ scaled
 ## Fit neural network 
 
 # install library
-install.packages("neuralnet", dep=T)
+#install.packages("neuralnet", dep=T)
 
 # load library
 library(neuralnet)
@@ -86,9 +86,7 @@ plot(NN,rep=71)
 predict_testNN = compute(NN, testNN[,c(1:5)],rep=71)
 predict_testNN$net.result
 
-X=(x-min)/(max-min)
-X*(max-min)=x-min
-x=X*(max-min)+min
+
 
 predict_testNN = (predict_testNN$net.result * (max(data$rating) - min(data$rating))) + min(data$rating)
 data[-index , 6]
@@ -130,5 +128,6 @@ for(j in 10:65){
 
 }
 List
+
 plot(apply(List,2,mean))
 
