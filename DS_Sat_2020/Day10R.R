@@ -104,7 +104,7 @@ library(rgdal)
 Regions <- readOGR("Fra_adm1.shp")
 
 slotNames(Regions)
-Regions@data    
+Regions@data   
 str(Regions@polygons)
 Regions@data$NAME_1
 
@@ -145,7 +145,8 @@ ggplot() + geom_map(data = counties,
 
 fake_data <- as.data.frame(Regions@data)
 ggplot() + geom_map(data = fake_data, aes(map_id = NAME_1, fill = Value),                   
-                    map = counties) + expand_limits(x = counties$long, y = counties$lat) + coord_map("polyconic")
+                    map = counties) + expand_limits(x = counties$long, y = counties$lat) + 
+  coord_map("polyconic")
 
 # In other colors:
 library(scales) 
@@ -175,7 +176,7 @@ hcmap("countries/fr/fr-all-all", data = data_fake, value = "value",
       joinBy = c("hc-a2", "code"), name = "Fake data",
       dataLabels = list(enabled = TRUE, format = '{point.name}'),
       borderColor = "#FAFAFA", borderWidth = 0.1,
-      tooltip = list(valueDecimals = 2, valuePrefix = "", valueSuffix = " mln")) %>% 
+      tooltip = list(valueDecimals = 2, valuePrefix = "$", valueSuffix = " mln")) %>% 
       hc_mapNavigation(enabled = TRUE) 
 
 
