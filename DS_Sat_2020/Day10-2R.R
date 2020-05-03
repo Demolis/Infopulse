@@ -26,13 +26,15 @@ model_cer<-rpart(rating ~ calories + protein + fat + sodium + fiber,
       data = train, method = "anova",
       control=rpart.control(minbucket = 2))
  model_cer
-prp(model_cer,type=3)
+prp(model_cer,type=2)
 
 fancyRpartPlot(model_cer)
 
 pred<-predict(model_cer, newdata = test, type="vector")
 
-sqrt(sum((pred - test$rating)^2)/length(pred))/mean(data$rating)
+sqrt(sum((pred - test$rating)^2)/length(pred))/median(data$rating)
+
+max((pred - test$rating)/test$rating)
 
 #the set of trees
 
