@@ -15,11 +15,15 @@ iris
 ## list of variables
 ls()
 
-?rm(list=ls())
+rm(list=ls())
 
 ## logical type
+TRUE
+FALSE
+T
+F
 logic_var<-3!=2
-logic_var<-T
+logic_var<-F
 !logic_var
 logic_var<-3>2 & 54<2
 logic_var
@@ -31,12 +35,14 @@ logic_var
 class(logic_var)
 par<-11.4
 
+
 is.numeric(par)
 par<-as.integer(par)
 class(par)
 
 par > 0
 cos(par)
+abs(par)
 pars<-sqrt(par)+34/32
 round(par)
 par %% 3
@@ -56,10 +62,11 @@ arr_1 <- c(6,2,43,4,2,1,7,8,9,10)
 arr_2 <- 17:45 # also functions seq() and rep()
 arr3<-seq(1.2,60,5)
 class(arr_1)
-arr3[2]
+arr3[5]
 arr3[2:4]
 arr3[c(3,5,1)]
 arr3[7:length(arr3)]
+arr3>7
 arr3[arr3>7]
 res<-arr_1 == 4
 res
@@ -72,7 +79,10 @@ length(arr_1)
 matr1 <- matrix (seq(1,16), nrow= 4, ncol =4)
 matr1
 rownames(matr1)<-c("A","B","C","D")
+matr1[1,3]
 matr1[2:4,-2]
+
+
 arr_2<-23:32
 arr_4<-cbind(arr_1,arr_2) #also rbind()
 matr1[4,3:4]
@@ -85,6 +95,7 @@ v3<-c("Hello","world")
 lst<-list(First=v1, Logic=v2, Text=v3)
 lst
 str(lst)
+
 lst$First
 lst$First[-3]
 lst[[2]][1]
@@ -96,12 +107,16 @@ tbl <- read.csv("1.csv",sep=";")#dec=","
 tbl
 str(tbl)
 head(tbl,n=3)
-?tail(tbl)
+tail(tbl)
+
 tbl$X
+tbl[3,2]
 tbl[tbl$Par.1>30,-2]
 tbl$Sum<-tbl$Par.1+tbl$Par.2
 str(tbl)
+tbl$Sum<-8
 tbl$Sum<-NULL
+tbl$Par.2[tbl$Par.2>500]<-NA
 
 ## statistics
 mean(1:10)
