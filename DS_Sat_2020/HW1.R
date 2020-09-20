@@ -66,7 +66,7 @@ hist(mas1)
 hist(mas2)
 mas1*3
 mas2[mas2>mean(mas2)]<-mas2[mas2>mean(mas2)]-18
-
+mas2
 
 df<-read.csv("DataDay1.csv",sep=";",dec = ",")
 df
