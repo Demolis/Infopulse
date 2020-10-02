@@ -20,13 +20,16 @@ ssf_pay <- select(ssf, c(3:8)) %>%
   mutate_if(is.factor, as.character) %>% 
   mutate_if(is.character, as.double)
 
+
+
 ssf <- bind_cols(ssf_names, ssf_pay, select(ssf, c(9:10)))
 
 ssf
-
+str(ssf)
 
 ggplot(aes(x = BasePay , y = TotalPayBenefits), data = ssf) +
   geom_point()
+
 
 ggplot(aes(x = BasePay, y = TotalPayBenefits), data = ssf) +
   geom_jitter(alpha = 0.05)
@@ -78,9 +81,12 @@ plotcorr(cor(ssf[corr_str],use = "complete") )
 #--------
 
 reslm<-lm(formula = yssf ~ xssf)
-summary (reslm)
 
-reslm
+#lm(TotalPay~OtherPay,data=ssf)
+
+summary (reslm)
+reslm$coefficients
+
 a0 <- reslm$coefficient[1]
 a1 <- reslm$coefficient[2]
 xmin <- min(xssf)
