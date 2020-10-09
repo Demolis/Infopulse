@@ -30,8 +30,8 @@ df%>%group_by(region)%>%summarise(MeanP=mean(AveragePrice))%>%
   arrange(desc(MeanP))
 df%>%group_by(region)%>%summarise(MeanP=mean(AveragePrice))%>%
   arrange(MeanP)
-#10
-#We will discuss it at the lesson 
+  #10
+  #We will discuss it at the lesson 
 
 #Slide 7
 df<-read.csv("DataDay2.csv",sep=";",dec = ",")
@@ -39,6 +39,14 @@ names(df)[4]<-"Population"
 summary(df)
 df$GDP.per.capita<-abs(df$GDP.per.capita)
 df$Area<-abs(df$Area)
+
+library(highcharter)
+df<-read.csv("DataDay2.csv",sep=";",dec = ",")
+hchart(df, "scatter", hcaes(x = "GDP.per.capita", y = "Area",label="Country.Name"))%>%hc_add_theme(hc_theme_elementary())%>% 
+  hc_title(
+    text = "Graph",
+    useHTML = TRUE) %>% hc_xAxis(title = list(text = "GDP")) %>%
+  hc_yAxis(title = list(text = "Bla"))%>%hc_legend(enabled=F)%>%hc_tooltip(split=T)
 #2
 for (i in 3:5)
   for (j in (i+1):6){
@@ -50,11 +58,11 @@ cor(df[,3:6],use = "pairwise.complete.obs")
 #4 one of the example
 df$co2my<-df$CO2.emission/df$Population
 ggplot(aes(x = CO2.emission/Population , y = GDP.per.capita), data = df) +
-  geom_point()
+  geom_point()+xlab("Bla")+ylab("Bla2")
 
 reslm<-lm(formula = df$GDP.per.capita ~ df$co2my)
 summary (reslm)
-reslm<-nls(formula = GDP.per.capita ~ a*co2my^2+b*co2my+c, data=df,start=list(a=1,b=1, c=1))
+reslm<-nls(formula = GDP.per.capita ~ a*co2my^2+b*co2my, data=df,start=list(a=1,b=1))
 summary (reslm)
 reslm$m$getPars()
 
