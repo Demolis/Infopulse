@@ -14,8 +14,6 @@ ssf <- ssf %>% select( -one_of(dc))
 # Names & Job Title
 ssf_names <- select(ssf, c(1:2))
 
-ssf_names %>% 
-  mutate_all(funs(factor(.)))
 
 # Pay and Benefits
 ssf_pay <- select(ssf, c(3:8)) %>% 
@@ -44,13 +42,19 @@ ad.test(xssf)
 qqnorm(xssf)
 qqline(xssf, col=1)
 
+temp<-rnorm(5000)
+
+qqnorm(temp)
+qqline(temp, col=1)
+
+
 median(xssf)
 wilcox.test(xssf, mu=median(xssf), conf.int=T)
 
 xssf_1=ssf[!is.na(ssf$TotalPay)&ssf$JobTitle=="Assistant Purchaser",]$TotalPay
 xssf_2=ssf[!is.na(ssf$TotalPay)&ssf$JobTitle=="Assistant Retirement Analyst",]$TotalPay
-?t.test(xssf_1, xssf_2, var.equal= F) 
-?wilcox.test(xssf_1, xssf_2) 
+t.test(xssf_1, xssf_2, var.equal= F) 
+wilcox.test(xssf_1, xssf_2) 
 
 
 install.packages("car", dep=T)
@@ -102,8 +106,8 @@ dec <- decompose(TS) #type for multiplicative
 plot(dec)
 plot(TS)
 
-acf(TS, lag.max = 21)
-acf(TS-dec$seasonal, lag.max = 21)
+acf(TS, lag.max = 48)
+acf(TS-dec$seasonal, lag.max = 48)
 Box.test(TS, type="Ljung-Box")
 
 acf(ts(rnorm(100)))
@@ -112,7 +116,7 @@ Box.test(ts(rnorm(100)), type="Ljung-Box")
 library(tseries)
 adf.test(TS) # p-value < 0.05 indicates the TS is stationary
 
-plot(diff(TS))
+plot(diff(TS,2))
 
 hist(diff(TS), breaks = 30)
 
@@ -127,7 +131,9 @@ fit <- HoltWinters(TS)
 plot(fit)
 accuracy(forecast(fit))
 forecast(fit, 10)
-plot(forecast(fit, 10))
+plot(forecast(fit, 4))
+
+
 
 #aditive models
 ?arima
@@ -138,7 +144,8 @@ AIC(model2)
 
 exp((AIC(model2)-AIC(model))/2)
 
-forec <- forecast(model, h = 10)
+forec <- forecast(model2, h = 10)
+forec$lower
 plot(forec, xlim=c(2012,2016))
 
 #automodels

@@ -2,7 +2,6 @@
 library(dplyr)
 library(tidyr)
 library(ggplot2)
-
 #Slide 1
 df1<-read.csv("Day4-1.csv",sep=";",dec=",")
 df2<-read.csv("Day4-2.csv",sep=";",dec=",")
@@ -27,17 +26,17 @@ summary(lmodel3)
 df<-read.csv("Day4.csv",sep=";",dec=",")
 summary(df)
 
-klust1<-kmeans(df[,5:7],4,nstart = 20)
+klust1<-kmeans(df[,4:6],4,nstart = 20)
 klust1
 df$Clust1<-klust1$cluster
 (df%>%arrange(desc(Iec)))$Clust1[1]
 
 #2
 plot(df$Ie,df$Iec,col=df$Clust1)
-points(klust1$centers[,1],klust1$centers[,2],pch=2)
+points(klust1$centers[,1],klust1$centers[,2],pch=5)
 
 #3
-klust2<-kmeans(df[,4],4,nstart = 20)
+klust2<-kmeans(df[,3],4,nstart = 20)
 klust2
 df$Clust2<-klust2$cluster
 df%>%group_by(Clust1,Clust2)%>%summarise(n())
@@ -61,7 +60,7 @@ df$Density[is.na(df$Density)]<-mean(df$Density,na.rm = T)
 df$GDP.per.capita[is.na(df$GDP.per.capita)]<-mean(df$GDP.per.capita,na.rm = T)
 klust1<-kmeans(df[,c(3,7)],4,nstart = 20)
 df$Clust1<-klust1$cluster
-df%>%group_by(Clust1,Region)%>%summarise(num=n())%>%group_by(Clust1)
+df%>%group_by(Clust1,Region)%>%summarise(num=n())
 
 #5
 mas<-c()
@@ -90,6 +89,7 @@ lm2<-lm(Cql~I(Is^2)+I(Ie^2)+I(Iec^2),data=df)
 summary(lm1)
 summary(lm2)
 #3
+
 test<-read.csv("Day4t.csv",sep=";",dec=",")
 Cql<-lm1$coefficients[1]+lm1$coefficients[2]*test$Is+lm1$coefficients[3]*test$Ie+lm1$coefficients[4]*test$Iec
 er1<-sum((test$Cql-Cql)^2)
