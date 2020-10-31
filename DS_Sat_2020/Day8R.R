@@ -1,6 +1,6 @@
 library(highcharter)
-
-#http://jkunst.com/highcharter/highmaps.html 
+library(dplyr)
+#https://jkunst.com/highcharter/
 #https://code.highcharts.com/mapdata/
   
 hcmap("countries/fr/custom/fr-all-mainland", showInLegend = FALSE)%>%
@@ -11,18 +11,18 @@ hcmap("countries/fr/custom/fr-all-mainland", showInLegend = FALSE)%>%
   hc_mapNavigation(enabled = TRUE) 
 
 mapdata <- get_data_from_map(download_map_data("countries/fr/fr-all-all"))
-library(dplyr)
+
 head(mapdata)
 data_fake <- mapdata %>% 
   select(code = `hc-a2`) %>% 
   mutate(value = rnorm(nrow(.),1000,500))
 
-hcmap("countries/fr/fr-all-all", data = data_fake, value = "value",
+print(hcmap("countries/fr/fr-all-all", data = data_fake, value = "value",
       joinBy = c("hc-a2", "code"), name = "Fake data",
-      dataLabels = list(enabled = TRUE, format = '{point.name}'),
+      dataLabels = list(enabled = FALSE, format = '{point.name}'),
       borderColor = "#FAFAFA", borderWidth = 0.1,
       tooltip = list(valueDecimals = 2, valuePrefix = "$", valueSuffix = " mln")) %>% 
-  hc_mapNavigation(enabled = TRUE) 
+  hc_mapNavigation(enabled = TRUE) )
 
 
 install.packages(c("tm","wordcloud"),dep=T)
@@ -41,7 +41,7 @@ a<-readLines(file(fpath))
 b<-paste(a,collapse=" ")
 a
 ?VCorpus
-
+close(file(fpath))
 textL<- VCorpus(VectorSource(a)) 
 summary(textL)
 inspect(textL[1])
@@ -102,7 +102,7 @@ dark2 <- brewer.pal(6, "Dark2")
 wordcloud(names(freq), freq, max.words=100, rot.per=0.2, colors=dark2)  
 
 #Term Clustering
-dtmss <- removeSparseTerms(dtm,sparse = 0.98) 
+dtmss <- removeSparseTerms(dtm,sparse = 0.99) 
 dtmss
 
 #Sentiment analysis
@@ -113,7 +113,22 @@ class_emo
 convertToDirection(class_emo$SentimentGI)
 
 #Context analysis
-dtm$dimnames$Terms
+
+textL<- VCorpus(VectorSource(b)) 
+
+textL <- tm_map(textL,removePunctuation)   
+
+textL <- tm_map(textL, removeNumbers) 
+textL <- tm_map(textL, tolower)   
+textL <- tm_map(textL, removeWords, stopwords("english"))   
+textL <- tm_map(textL, stripWhitespace)
+textL <- tm_map(textL, PlainTextDocument)
+dtm <- DocumentTermMatrix(textL) 
+
+class_emo <- analyzeSentiment(textL)
+class_emo
+convertToDirection(class_emo$SentimentGI)
+
 
 install.packages(c("topicmodels","SnowballC"))
 library(topicmodels)
@@ -121,6 +136,7 @@ library(SnowballC)
 burnin = 2000
 iter = 10000
 keep = 50
+
 res<-LDA(dtm,
          k = 5,
          method = "Gibbs",
@@ -133,7 +149,7 @@ str(res@logLiks)
 topics(res,5) 
 terms(res,10)
 
-#######
+####### For stemmization
 temp<-strsplit(textL[[1]]$content," ")[[1]]
 temp<-wordStem(temp,language="ru")
 textL[[1]]$content<-paste(temp,collapse=" ")
